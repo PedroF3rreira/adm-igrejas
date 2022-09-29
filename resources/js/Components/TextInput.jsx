@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+//import { IMaskInput } from "react-imask";
 
 export default function TextInput({
     type = 'text',
@@ -9,7 +10,8 @@ export default function TextInput({
     required,
     handleChange,
     isFocused,
-    placeholder=''
+    placeholder='',
+    mask=null
 }) {
     const input = useRef();
 
@@ -25,7 +27,7 @@ export default function TextInput({
                 name={name}
                 value={value}
                 className={
-                    `border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm ` +
+                    `placeholder:text-slate-400 placeholder:italic px-3 text-slate-500 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm ` +
                     className
                 }
                 ref={input}
@@ -33,6 +35,7 @@ export default function TextInput({
                 required={required}
                 onChange={(e) => handleChange(e)}
                 placeholder={placeholder}
+                mask={mask}
             />
         </div>
     );

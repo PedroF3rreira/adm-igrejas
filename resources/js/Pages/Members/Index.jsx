@@ -9,10 +9,13 @@ import ListItem from '@/Components/ListItem';
 import { IoMdList, IoIosPersonAdd } from 'react-icons/io';
 import Dropdown from '@/Components/Dropdown';
 
-
 export default function Index(props) {
 
     const [ showForm, setShowForm ] = useState(false);
+
+    const onHandleChange = (event) => {
+        setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
+    };
 
     return(
         <AuthenticatedLayout
@@ -70,14 +73,50 @@ export default function Index(props) {
                     </div>
 
                     {showForm &&
-                        <form className='mx-auto flex flex-col space-y-2 w-1/2 border p-2 rounded'>
+                        <form className='mx-auto flex flex-col space-y-2 w-1/2 border p-2 rounded mb-3'>
                             <h3 className='ml-5 mb-3 p-2 bg-indigo-500 text-white rounded-l-lg'>Cadastro de membros</h3>
-                            <input
-                            className='border border-slate-400 rounded p-1 text-slate-600  focus:ring'
-                            placeholder='Digite o nome completo'/>
-                            <input
-                            className='border border-slate-400 rounded p-1 text-slate-600  focus:ring'
-                            placeholder='Digite o nome completo'/>
+
+                            <div className='flex space-x-5'>
+
+                                <TextInput
+                                    className='p-1'
+                                    name='name'
+                                    placeholder="nome completo:"
+                                    onChange={onHandleChange}
+                                />
+                                <TextInput
+                                    type="email"
+                                    className='p-1'
+                                    name='name'
+                                    placeholder="email:"
+                                    onChange={onHandleChange}
+                                />
+
+                            </div>
+                            <div className='flex space-x-5'>
+                                <TextInput
+                                    className='p-1'
+                                    name='cel1'
+                                    placeholder="telefone:"
+                                    onChange={onHandleChange}
+
+                                />
+                                <TextInput
+                                    className='p-1'
+                                    name='cpf'
+                                    placeholder="cpf"
+                                    onChange={onHandleChange}
+
+                                />
+
+                            </div>
+
+                            <TextInput
+                                className={`p-1`}
+                                name='cel2'
+                                placeholder="celular:"
+                                onChange={onHandleChange}
+                            />
 
                         </form>
                             }
