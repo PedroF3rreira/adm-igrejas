@@ -7,7 +7,7 @@ export default function TextInput({
     className,
     autoComplete,
     required,
-    onChange,
+    handleChange,
     isFocused,
     placeholder=''
 }) {
@@ -18,11 +18,6 @@ export default function TextInput({
             input.current.focus();
         }
     }, []);
-
-    const handleChange = (name, e) => {
-        return setData(name, e.target.value)
-    }
-
     return (
         <div className="flex flex-col items-start">
             <input
@@ -36,7 +31,7 @@ export default function TextInput({
                 ref={input}
                 autoComplete={autoComplete}
                 required={required}
-                onChange={(e) => handleChange(name,e)}
+                onChange={(e) => handleChange(e)}
                 placeholder={placeholder}
             />
         </div>
