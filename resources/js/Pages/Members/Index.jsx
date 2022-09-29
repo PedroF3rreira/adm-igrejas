@@ -8,7 +8,7 @@ import List from '@/Components/List';
 import ListItem from '@/Components/ListItem';
 import { IoMdSearch } from 'react-icons/io';
 import { IoMdList } from 'react-icons/io';
-import { Dropdown } from '@/Components/Dropdown';
+
 
 export default function Index(props) {
 
@@ -31,13 +31,15 @@ export default function Index(props) {
                             <IoMdList className="text-2xl cursor-pointer" onClick={() => setDropdown(true)}/>
                         </div>
                     </div>
+                    
                     <List title="Membros">
                        {props.members.map((member) => (
                            
-                               <ListItem data={member}/>
+                               <ListItem key={member.id} data={member}/>
                            
                            ))}
                     </List>
+
                 </div>
                 <div className='bg-white rounded lg:w-64 p-2 shadow-md'>
                     <h1>Conteúdo lateral</h1>
