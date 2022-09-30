@@ -16,7 +16,7 @@ class MemberController extends Controller
     public function index()
     {
         return Inertia::render('Members/Index',[
-            'members' => Member::all()
+            'members' => Member::orderBy('created_at', 'DESC')->get(),
         ]);
     }
 
@@ -27,7 +27,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Members/Created');
     }
 
     /**
