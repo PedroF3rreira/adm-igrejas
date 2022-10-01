@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/inertia-react';
-import { Link } from '@inertiajs/inertia-react';
-import TextInput from '@/Components/TextInput';
-// import InputLabel from '@/Components/Inputlabel';
 import List from '@/Components/List';
 import ListItem from '@/Components/ListItem';
 import { IoMdList, IoIosPersonAdd } from 'react-icons/io';
 import Dropdown from '@/Components/Dropdown';
+import FormMember from '@/Components/FormMember';
 
 export default function Index(props) {
 
     const [ showForm, setShowForm ] = useState(false);
-
-    const onHandleChange = (event) => {
-        setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
-    };
 
     return(
         <AuthenticatedLayout
@@ -30,11 +24,7 @@ export default function Index(props) {
 
                     <div className="flex mb-2 items-center">
 
-                        <div className="flex-1">
-                            <TextInput type="search" className="p-1" />
-                        </div>
-
-
+                        {/* Controles de lista */}
                         <div className="w-32 flex space-x-10">
 
                             <div  onClick={() => !showForm?setShowForm(true):setShowForm(false)}>
@@ -73,53 +63,8 @@ export default function Index(props) {
                     </div>
 
                     {showForm &&
-                        <form className='mx-auto flex flex-col space-y-2 w-1/2 border p-2 rounded mb-3'>
-                            <h3 className='ml-5 mb-3 p-2 bg-indigo-500 text-white rounded-l-lg'>Cadastro de membros</h3>
-
-                            <div className='flex space-x-5'>
-
-                                <TextInput
-                                    className='p-1'
-                                    name='name'
-                                    placeholder="nome completo:"
-                                    onChange={onHandleChange}
-                                />
-                                <TextInput
-                                    type="email"
-                                    className='p-1'
-                                    name='name'
-                                    placeholder="email:"
-                                    onChange={onHandleChange}
-                                />
-
-                            </div>
-                            <div className='flex space-x-5'>
-                                <TextInput
-                                    className='p-1'
-                                    name='cel1'
-                                    placeholder="telefone:"
-                                    onChange={onHandleChange}
-
-                                />
-                                <TextInput
-                                    className='p-1'
-                                    name='cpf'
-                                    placeholder="cpf"
-                                    onChange={onHandleChange}
-
-                                />
-
-                            </div>
-
-                            <TextInput
-                                className={`p-1`}
-                                name='cel2'
-                                placeholder="celular:"
-                                onChange={onHandleChange}
-                            />
-
-                        </form>
-                            }
+                        <FormMember title="Cadastro de "/>
+                    }
 
                     <List title="Membros">
                        {props.members.map((member) => (
