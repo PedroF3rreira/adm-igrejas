@@ -17,6 +17,7 @@ class MemberController extends Controller
     {
         return Inertia::render('Members/Index',[
             'members' => Member::orderBy('created_at', 'DESC')->get(),
+            'status' => session('status')
         ]);
     }
 
@@ -38,7 +39,28 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required',
+            'cel1' => 'required',
+            'cpf' => 'required'
+        ]);
+
+        $member = new Member();
+        $member->name = $request->name;
+        $member->email = $request->email;
+        $member->cel1 = $request->cel1;
+        $member->cel2 = $request->cel2??null;
+        $member->cpf = $request->cpf;
+        $member->user_id = $request->user()->id;
+
+        if($member->save()){
+            return redirect()
+                ->route('members.index')
+            ->with(['status' => 'Membro cadastrado com exito!']);
+        }
+
+        return redirect()->route('members.index')->withErros('error', 'não foi possivel fazer o cadastro');
     }
 
     /**

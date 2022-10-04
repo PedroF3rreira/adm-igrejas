@@ -10,7 +10,7 @@ import ListItem from '@/Components/ListItem';
 
 export default function Created(props) {
 
-    const { data, setData, post, processing, reset, errors } = useForm({
+    const { data, setData, post, processing, reset, errors, recentlySuccessful } = useForm({
         name: '',
         email: '',
         cel1: '',
@@ -20,7 +20,7 @@ export default function Created(props) {
 
     const submit = (e) =>{
         e.preventDefault();
-        post(route('members.store'), { onSuccess: () => reset() });
+        post(route('members.store'), {onSuccess: () => reset() });
     }
 
 

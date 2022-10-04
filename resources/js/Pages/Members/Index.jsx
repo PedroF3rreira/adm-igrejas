@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/inertia-react';
 import List from '@/Components/List';
@@ -6,26 +6,50 @@ import ListItem from '@/Components/ListItem';
 import { IoMdList, IoIosPersonAdd } from 'react-icons/io';
 import Dropdown from '@/Components/Dropdown';
 import FormMember from '@/Components/FormMember';
+import Message from '@/Components/Message';
+
 
 export default function Index(props) {
 
     const [ showForm, setShowForm ] = useState(false);
+    const [ showMessage, setShowMessage ] = useState(false);
 
+   //  useEffect(() => {
+        
+   //     if(props.status){
+   //         setShowMessage(true)
+           
+   //         setTimeout(() => {
+               
+   //             setShowMessage(false)
+           
+   //         }, 3000)
+   //     } 
+   // })
+   
     return(
         <AuthenticatedLayout
         auth={props.auth}
         errors={props.errors}
         >
             <Head title='Membros' />
-
+            
+            {props.status &&
+                <Message text={props.status}/>
+            }
+            
             <div className='lg:flex px-5 mt-5 text-slate-500'>
                 <div className='bg-white rounded lg:flex-1 lg:mx-4 mb-2 p-2 shadow-md'>
 
-
                     <div className="flex mb-2 items-center">
-
+                        
                         {/* Controles de lista */}
-                        <div className="w-32 flex space-x-10">
+                        <div className="w-full flex space-x-5">
+
+                            {/*pesquisas*/}
+                            <div className='w-full'>
+                                
+                            </div>
 
                             <div  onClick={() => !showForm?setShowForm(true):setShowForm(false)}>
                                 <IoIosPersonAdd className={`
