@@ -16,35 +16,35 @@ export default function Index(props) {
 
     const timeMessageShow = (data) => {
         setShowMessage(data)
-        
+
         setTimeout( () => {
             setShowMessage(false)
-        }, 3000)    
+        }, 3000)
     }
-   
+
     return(
         <AuthenticatedLayout
         auth={props.auth}
         errors={props.errors}
         >
             <Head title='Membros' />
-            
+
             {showMessage &&
                 <Message text={props.status}/>
             }
-            
-            
+
+
             <div className='lg:flex px-5 mt-5 text-slate-500'>
                 <div className='bg-white rounded lg:flex-1 lg:mx-4 mb-2 p-2 shadow-md'>
 
                     <div className="flex mb-2 items-center">
-                        
+
                         {/* Controles de lista */}
                         <div className="w-full flex space-x-5 border-b">
 
                             {/*pesquisas*/}
                             <div className='w-full'>
-                                
+
                             </div>
 
                             <div  onClick={() => !showForm?setShowForm(true):setShowForm(false)}>

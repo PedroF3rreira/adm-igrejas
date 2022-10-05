@@ -3,6 +3,9 @@ import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import { useForm } from '@inertiajs/inertia-react';
 import PrimaryButton from '@/Components/PrimaryButton';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 
 export default function FormMember ({ title, formSuccess }) {
 
@@ -15,17 +18,14 @@ export default function FormMember ({ title, formSuccess }) {
         image:''
     });
 
+    useEffect(() => {
+        AOS.init()
+        formSuccess(wasSuccessful)
+    }, [wasSuccessful])
+
     const submit = (e) =>{
         e.preventDefault();
-        post(route('members.store'), { 
-            
-            onSuccess: () => {
-                reset()
-                formSuccess(wasSuccessful)
-            }
-        });
-        
-        
+        post(route('members.store'), { onSuccess: () => reset()});
     }
 
     const onHandleChange = (event) => {
@@ -36,12 +36,13 @@ export default function FormMember ({ title, formSuccess }) {
         <form
             onSubmit={submit}
             className='mx-auto flex flex-col space-y-2 w-3/4 border p-2 rounded mb-3'
+            data-aos='fade-left'
             >
-            
+
             <h3 className='ml-5 mb-3 p-2 bg-indigo-500 text-white rounded-l-lg'>{`${title} Membros`}</h3>
-            
+
             {/*form control*/}
-            <div className='flex space-x-2 w-full'>    
+            <div className='flex space-x-2 w-full'>
                 <div className='w-full'>
                     <TextInput
                         value={data.name}
@@ -51,7 +52,7 @@ export default function FormMember ({ title, formSuccess }) {
                     />
                     <InputError message={errors.name} className="mt-2" />
                 </div>
-                
+
                 <div className='w-full'>
                     <TextInput
                         name='email'
@@ -65,7 +66,7 @@ export default function FormMember ({ title, formSuccess }) {
             </div>
 
             {/*form control*/}
-            <div className='flex space-x-2'>    
+            <div className='flex space-x-2'>
                 <div className='w-full'>
                     <TextInput
                         name='cel1'
@@ -90,7 +91,7 @@ export default function FormMember ({ title, formSuccess }) {
             </div>
 
         {/*form control*/}
-            <div className='flex space-x-2'> 
+            <div className='flex space-x-2'>
                 <div className='w-full'>
                     <TextInput
                         name='cpf'
@@ -101,7 +102,7 @@ export default function FormMember ({ title, formSuccess }) {
                     />
                     <InputError message={errors.cpf} className="mt-2" />
                 </div>
-                
+
                 <div className='w-full'>
                     <TextInput
                         type='file'
@@ -112,7 +113,7 @@ export default function FormMember ({ title, formSuccess }) {
                     <InputError message={errors.image} className="mt-2" />
                 </div>
             </div>
-            
+
             <PrimaryButton className='w-32' processing={processing}>Cadastrar</PrimaryButton>
         </form>
     );
