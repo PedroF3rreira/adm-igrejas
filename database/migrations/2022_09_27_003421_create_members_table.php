@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('cel1');
             $table->string('cel2')->nullable();
-            $table->string('email');
-            $table->string('cpf');
+            $table->string('email')->unique();
+            $table->string('cpf')->unique();
             $table->string('image')->nullable();
             $table->foreignIdFor(User::class)
                 ->references('id')

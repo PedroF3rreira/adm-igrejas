@@ -4,9 +4,9 @@ import InputError from '@/Components/InputError';
 import { useForm } from '@inertiajs/inertia-react';
 import PrimaryButton from '@/Components/PrimaryButton';
 
-export default function FormMember ({title}) {
+export default function FormMember ({ title, formSuccess }) {
 
-    const { data, setData, post, processing, reset, errors } = useForm({
+    const { data, setData, post, processing, reset, errors, wasSuccessful  } = useForm({
         name: '',
         cel1: '',
         cel2: '',
@@ -17,7 +17,14 @@ export default function FormMember ({title}) {
 
     const submit = (e) =>{
         e.preventDefault();
-        post(route('members.store'), { onSuccess: () => reset() });
+        post(route('members.store'), { 
+            
+            onSuccess: () => {
+                reset()
+                formSuccess(wasSuccessful)
+            }
+        });
+        
         
     }
 

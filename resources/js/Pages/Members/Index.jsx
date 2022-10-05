@@ -14,18 +14,13 @@ export default function Index(props) {
     const [ showForm, setShowForm ] = useState(false);
     const [ showMessage, setShowMessage ] = useState(false);
 
-   //  useEffect(() => {
+    const timeMessageShow = (data) => {
+        setShowMessage(data)
         
-   //     if(props.status){
-   //         setShowMessage(true)
-           
-   //         setTimeout(() => {
-               
-   //             setShowMessage(false)
-           
-   //         }, 3000)
-   //     } 
-   // })
+        setTimeout( () => {
+            setShowMessage(false)
+        }, 3000)    
+    }
    
     return(
         <AuthenticatedLayout
@@ -34,9 +29,10 @@ export default function Index(props) {
         >
             <Head title='Membros' />
             
-            {props.status &&
+            {showMessage &&
                 <Message text={props.status}/>
             }
+            
             
             <div className='lg:flex px-5 mt-5 text-slate-500'>
                 <div className='bg-white rounded lg:flex-1 lg:mx-4 mb-2 p-2 shadow-md'>
@@ -44,7 +40,7 @@ export default function Index(props) {
                     <div className="flex mb-2 items-center">
                         
                         {/* Controles de lista */}
-                        <div className="w-full flex space-x-5">
+                        <div className="w-full flex space-x-5 border-b">
 
                             {/*pesquisas*/}
                             <div className='w-full'>
@@ -87,7 +83,7 @@ export default function Index(props) {
                     </div>
 
                     {showForm &&
-                        <FormMember title="Cadastro de "/>
+                        <FormMember title="Cadastro de " formSuccess={timeMessageShow}/>
                     }
 
                     <List title="Membros">

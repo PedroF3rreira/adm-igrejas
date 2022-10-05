@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Http\Requests\Member\StoreMember;
 
 class MemberController extends Controller
 {
@@ -37,20 +38,15 @@ class MemberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMember $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required',
-            'cel1' => 'required',
-            'cpf' => 'required'
-        ]);
+        $validated = $request->validated();
 
         $member = new Member();
         $member->name = $request->name;
         $member->email = $request->email;
         $member->cel1 = $request->cel1;
-        $member->cel2 = $request->cel2??null;
+        $member->cel2 = $request->cel2;
         $member->cpf = $request->cpf;
         $member->user_id = $request->user()->id;
 
