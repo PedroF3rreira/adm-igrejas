@@ -8,7 +8,6 @@ import Dropdown from '@/Components/Dropdown';
 import FormMember from '@/Components/FormMember';
 import Message from '@/Components/Message';
 
-
 export default function Index(props) {
 
     const [ showForm, setShowForm ] = useState(false);
@@ -29,13 +28,18 @@ export default function Index(props) {
         >
             <Head title='Membros' />
 
+            {/* menssagem exibida apos eventos n sistema */}
             {showMessage &&
                 <Message text={props.status}/>
             }
 
 
             <div className='lg:flex px-5 mt-5 text-slate-500'>
-                <div className='bg-white rounded lg:flex-1 lg:mx-4 mb-2 p-2 shadow-md'>
+                <div
+                    className='bg-white rounded lg:flex-1 lg:mx-4 mb-2 p-2 shadow-md'
+                    data-aos='fade-up'
+                    data-aos-duration='1000'
+                >
 
                     <div className="flex mb-2 items-center">
 
@@ -95,7 +99,12 @@ export default function Index(props) {
                     </List>
 
                 </div>
-                <div className='bg-white rounded lg:w-64 p-2 shadow-md'>
+                {/* lateral */}
+                <div
+                    className='bg-white rounded lg:w-64 p-2 shadow-md'
+                    data-aos='fade-left'
+                    data-aos-duration='1000'
+                >
                     <h1>Conteúdo lateral</h1>
                 </div>
             </div>

@@ -3,9 +3,6 @@ import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import { useForm } from '@inertiajs/inertia-react';
 import PrimaryButton from '@/Components/PrimaryButton';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
 
 export default function FormMember ({ title, formSuccess }) {
 
@@ -19,7 +16,6 @@ export default function FormMember ({ title, formSuccess }) {
     });
 
     useEffect(() => {
-        AOS.init()
         formSuccess(wasSuccessful)
     }, [wasSuccessful])
 
@@ -37,6 +33,7 @@ export default function FormMember ({ title, formSuccess }) {
             onSubmit={submit}
             className='mx-auto flex flex-col space-y-2 w-3/4 border p-2 rounded mb-3'
             data-aos='fade-left'
+            data-aos-duration='1000'
             >
 
             <h3 className='ml-5 mb-3 p-2 bg-indigo-500 text-white rounded-l-lg'>{`${title} Membros`}</h3>
