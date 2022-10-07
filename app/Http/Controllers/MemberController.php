@@ -40,8 +40,6 @@ class MemberController extends Controller
      */
     public function store(StoreMember $request)
     {
-        
-
         $validated = $request->validated();
 
         $member = new Member();
@@ -50,7 +48,11 @@ class MemberController extends Controller
         $member->cel1 = $request->cel1;
         $member->cel2 = $request->cel2;
         $member->cpf = $request->cpf;
-        $member->image = $request->file('image')->store('teste', 'public');
+
+        if($request->file('image')){
+            $member->image = $request->file('image')->store('teste', 'public');
+        }
+
         $member->user_id = $request->user()->id;
 
         if($member->save()){

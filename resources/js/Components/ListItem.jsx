@@ -6,8 +6,16 @@ export default function ListItem({data}) {
 	return(
 		<div className="border p-1 rounded  mt-2 hover:bg-indigo-200">
 			<div className="flex space-x-20 items-center">
-				<div >
-					<IoIosContact className="text-3xl"/>
+				<div>
+                    {data.image
+                        ?<img
+                            src={'/storage/'+data.image}
+                            width='30'
+                            height='30'
+                            className='rounded-full'
+                        />
+                        :<IoIosContact className="text-3xl"/>
+                    }
 				</div>
 				<div className="w-64">{data.name}</div>
 				<div>{data.cel1}</div>

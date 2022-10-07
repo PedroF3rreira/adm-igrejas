@@ -21,6 +21,9 @@ Route::get('/', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::resource('/membros', MemberController::class)->names('members')->parameters(['membros' => 'member']);
+Route::resource('/membros', MemberController::class)
+    ->names('members')
+    ->parameters(['membros' => 'member'])
+->middleware(['auth']);
 
 require __DIR__.'/auth.php';

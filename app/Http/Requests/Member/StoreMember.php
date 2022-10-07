@@ -24,12 +24,13 @@ class StoreMember extends FormRequest
     public function rules()
     {
         return [
-            
+
             'name' => 'required|string',
             'email' => 'required|unique:members',
             'cel1' => 'required',
             'cel2' => 'nullable',
             'cpf' => 'required|unique:members',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif'
         ];
     }
 }
