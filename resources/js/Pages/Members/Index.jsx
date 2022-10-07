@@ -34,7 +34,7 @@ export default function Index(props) {
             }
 
 
-            <div className='lg:flex px-5 mt-5 text-slate-500'>
+            <div className='lg:flex px-5 mt-5 text-slate-500 overflow-hidden'>
                 <div
                     className='bg-white rounded lg:flex-1 lg:mx-4 mb-2 p-2 shadow-md'
                     data-aos='fade-up'

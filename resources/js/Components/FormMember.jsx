@@ -6,13 +6,13 @@ import PrimaryButton from '@/Components/PrimaryButton';
 
 export default function FormMember ({ title, formSuccess }) {
 
-    const { data, setData, post, processing, reset, errors, wasSuccessful  } = useForm({
-        name: '',
-        cel1: '',
-        cel2: '',
-        email: '',
-        cpf: '',
-        image:''
+    const { data, setData, post, processing, reset, errors, wasSuccessful, progress  } = useForm({
+        name: null,
+        cel1: null,
+        cel2: null,
+        email: null,
+        cpf: null,
+        image: null,
     });
 
     useEffect(() => {
@@ -101,12 +101,21 @@ export default function FormMember ({ title, formSuccess }) {
                 </div>
 
                 <div className='w-full'>
-                    <TextInput
-                        type='file'
-                        value={data.image}
-                        placeholder='imagem do membro'
-                        handleChange={onHandleChange}
-                    />
+                   
+                    <input 
+                        type='file' 
+                        onChange={e => setData('image', e.target.files[0])}
+                        className='
+                            file:bg-indigo-600 
+                            file:border-0
+                            file:p-1
+                            file:rounded
+                            file:text-white
+                            file:cursor-pointer
+                            hover:file:bg-indigo-400
+                        '
+                        />
+                    
                     <InputError message={errors.image} className="mt-2" />
                 </div>
             </div>
