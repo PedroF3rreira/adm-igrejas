@@ -12,7 +12,7 @@ export default function FormMemberUpdate ({ title, formSuccess, member }) {
         cel2: member.cel2?member.cel2:null,
         email: member.email?member.email:null,
         cpf: member.cpf?member.cpf:null,
-        image: member.image?member.image:null,
+        // image: member.image?member.image:null,
     });
 
     useEffect(() => {
@@ -91,7 +91,7 @@ export default function FormMemberUpdate ({ title, formSuccess, member }) {
 
         {/*form control*/}
             <div className='flex space-x-2'>
-                <div className='w-full'>
+                <div className='w-1/2'>
                     <TextInput
                         name='cpf'
                         value={data.cpf}
@@ -102,7 +102,7 @@ export default function FormMemberUpdate ({ title, formSuccess, member }) {
                     <InputError message={errors.cpf} className="mt-2" />
                 </div>
 
-                <div className='w-full'>
+                {/* <div className='w-full'>
 
                     <input
                         type='file'
@@ -119,7 +119,7 @@ export default function FormMemberUpdate ({ title, formSuccess, member }) {
                         />
 
                     <InputError message={errors.image} className="mt-2" />
-                </div>
+                </div> */}
             </div>
 
             <PrimaryButton className='w-32' processing={processing}>Editar membro</PrimaryButton>

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from '@inertiajs/inertia-react';
 import { IoIosContact, IoIosTrash, IoIosCreate } from 'react-icons/io';
 import FormMemberUpdate from '@/Components/FormMemberUpdate';
+import Message from '@/Components/Message';
 
-export default function ListItem({data}) {
+export default function ListItem({data, status}) {
 
     const [ showEditForm, setShowEditForm ] = useState(false);
     const [ showMessage, setShowMessage ] = useState(false);
@@ -25,11 +26,10 @@ export default function ListItem({data}) {
     }
 
     return(
-		<div className="border p-1 rounded  mt-2 hover:bg-indigo-200">
-            {showEditForm &&
-                <FormMemberUpdate title={`Editar ${data.name}`} formSuccess={timeMessageShow} member={data}/>
+		<div className={`border p-1 rounded  mt-2 ${!showEditForm && 'hover:bg-indigo-200'}`}>
+            {showMessage &&
+                <Message text={'editado copm exito'}/>
             }
-
 			<div className="flex space-x-20 items-center">
 				<div>
                     {data.image
@@ -62,6 +62,9 @@ export default function ListItem({data}) {
                     </Link>
 				</div>
 			</div>
+            {showEditForm &&
+                <FormMemberUpdate title={`Editar ${data.name}`} formSuccess={timeMessageShow} member={data}/>
+            }
 		</div>
 	);
 }

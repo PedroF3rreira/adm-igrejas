@@ -6,6 +6,7 @@ use App\Models\Member;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Requests\Member\StoreMember;
+use App\Http\Requests\Member\UpdateMember;
 
 class MemberController extends Controller
 {
@@ -93,20 +94,38 @@ class MemberController extends Controller
      * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Member $member)
+    public function update(UpdateMember $request, Member $member)
     {
+        $request->validated();
 
-        $request->validate([
-            'name' => 'required',
-        ]);
         $member->name = $request->name;
-        $member->email = $request->email;
+
+        if($member->email === $request->email){
+            $member->email = $request->email;
+        }
+        else{
+            $request->validate([
+                'email' => 'required|unique:members',
+            ]);
+            $member->email = $request->email;
+        }
+
         $member->cel1 = $request->cel1;
         $member->cel2 = $request->cel2;
-        $member->cpf = $request->cpf;
+
+        if($member->cpf === $request->cpf){
+            $member->cpf = $request->cpf;
+        }
+        else{
+            $request->validate([
+                'cpf' => 'required|unique:members',
+            ]);
+            $member->cpf = $request->cpf;
+        }
 
         if($request->file('image')){
             $member->image = $request->file('image')->store('teste', 'public');
+
         }
 
         $member->user_id = $request->user()->id;

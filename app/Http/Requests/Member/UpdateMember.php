@@ -4,7 +4,7 @@ namespace App\Http\Requests\Member;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMember extends FormRequest
+class UpdateMember extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,13 +23,12 @@ class StoreMember extends FormRequest
      */
     public function rules()
     {
-        return [
 
+        return [
             'name' => 'required|string|min:5',
-            'email' => 'required|unique:members',
             'cel1' => 'required|min:14',
             'cel2' => 'nullable|min:14',
-            'cpf' => 'required|unique:members',
+            'cpf' => 'required|min:14',
             'image' => 'nullable|image|mimes:jpeg,jpg,png,gif'
         ];
     }
