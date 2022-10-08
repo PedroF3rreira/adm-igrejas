@@ -95,7 +95,29 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
-        //
+
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $member->name = $request->name;
+        $member->email = $request->email;
+        $member->cel1 = $request->cel1;
+        $member->cel2 = $request->cel2;
+        $member->cpf = $request->cpf;
+
+        if($request->file('image')){
+            $member->image = $request->file('image')->store('teste', 'public');
+        }
+
+        $member->user_id = $request->user()->id;
+
+        if($member->save()){
+            return redirect()
+                ->route('members.index')
+            ->with(['status' => 'Membro atualizado com exito!']);
+        }
+
+        return redirect()->route('members.index')->withErros('error', 'não foi possivel fazer o cadastro');
     }
 
     /**
@@ -106,6 +128,8 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        //
+        $member->delete();
+
+        return redirect(route('members.index'));
     }
 }

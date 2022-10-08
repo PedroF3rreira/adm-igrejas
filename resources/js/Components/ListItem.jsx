@@ -1,10 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from '@inertiajs/inertia-react';
 import { IoIosContact, IoIosTrash, IoIosCreate } from 'react-icons/io';
+import FormMemberUpdate from '@/Components/FormMemberUpdate';
 
 export default function ListItem({data}) {
-	return(
+
+    const [ showEditForm, setShowEditForm ] = useState(false);
+    const [ showMessage, setShowMessage ] = useState(false);
+
+    const timeMessageShow = (data) => {
+        setShowMessage(data)
+
+        setTimeout( () => {
+            setShowMessage(false)
+        }, 3000)
+    }
+    const showEditFormHandle = () => {
+        if(!showEditForm){
+            setShowEditForm(true);
+        }
+        else{
+            setShowEditForm(false);
+        }
+    }
+
+    return(
 		<div className="border p-1 rounded  mt-2 hover:bg-indigo-200">
+            {showEditForm &&
+                <FormMemberUpdate title={`Editar ${data.name}`} formSuccess={timeMessageShow} member={data}/>
+            }
+
 			<div className="flex space-x-20 items-center">
 				<div>
                     {data.image
@@ -21,8 +46,20 @@ export default function ListItem({data}) {
 				<div>{data.cel1}</div>
 
 				<div className="flex space-x-4">
-					<Link className="text-2xl text-indigo-400 hover:text-indigo-600" href="#" title="Editar"><IoIosCreate/></Link>
-					<Link className="text-2xl text-red-400 hover:text-red-600" href="#" title="Excluir"><IoIosTrash/></Link>
+					<button
+                        className={`text-2xl text-indigo-400 hover:text-indigo-600 ${showEditForm && 'text-indigo-900'}`}
+                        onClick={() => showEditFormHandle()}
+                        title="Editar">
+                        <IoIosCreate/>
+                    </button>
+					<Link
+                        className="text-2xl text-red-400 hover:text-red-600"
+                        as="button"
+                        method="delete"
+                        href={route("members.destroy", data.id)}
+                        title="Excluir">
+                        <IoIosTrash/>
+                    </Link>
 				</div>
 			</div>
 		</div>

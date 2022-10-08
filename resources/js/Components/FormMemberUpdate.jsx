@@ -4,24 +4,24 @@ import InputError from '@/Components/InputError';
 import { useForm } from '@inertiajs/inertia-react';
 import PrimaryButton from '@/Components/PrimaryButton';
 
-export default function FormMember ({ title, formSuccess, member=null}) {
+export default function FormMemberUpdate ({ title, formSuccess, member }) {
 
-    const { data, setData, post, processing, reset, errors, wasSuccessful, progress  } = useForm({
-        name: null,
-        cel1: null,
-        cel2: null,
-        email: null,
-        cpf: null,
-        image: null,
+    const { data, setData, put, processing, reset, errors, wasSuccessful, progress  } = useForm({
+        name: member.name?member.name:null,
+        cel1: member.cel1?member.cel1:null,
+        cel2: member.cel2?member.cel2:null,
+        email: member.email?member.email:null,
+        cpf: member.cpf?member.cpf:null,
+        image: member.image?member.image:null,
     });
 
     useEffect(() => {
         formSuccess(wasSuccessful)
     }, [wasSuccessful])
 
-    const submit = (e) =>{
+    const submitUpdate = (e) =>{
         e.preventDefault();
-        post(route('members.store'), { onSuccess: () => reset()});
+        put(route('members.update', member.id));
     }
 
     const onHandleChange = (event) => {
@@ -30,7 +30,7 @@ export default function FormMember ({ title, formSuccess, member=null}) {
 
     return(
         <form
-            onSubmit={submit}
+            onSubmit={submitUpdate}
             className='mx-auto flex flex-col space-y-2 w-3/4 border p-2 rounded mb-3'
             data-aos='fade-left'
             data-aos-duration='1000'
@@ -41,21 +41,23 @@ export default function FormMember ({ title, formSuccess, member=null}) {
             {/*form control*/}
             <div className='flex space-x-2 w-full'>
                 <div className='w-full'>
-                    <TextInput
+                    <input
                         name='name'
+                        className='border flex w-full placeholder:text-slate-400 placeholder:italic px-3 text-slate-500 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2'
                         value={data.name}
                         placeholder='Nome completo...'
-                        handleChange={onHandleChange}
+                        onChange={e => setData('name', e.target.value)}
                     />
                     <InputError message={errors.name} className="mt-2" />
                 </div>
 
                 <div className='w-full'>
-                    <TextInput
+                    <input
+                        className='border flex w-full placeholder:text-slate-400 placeholder:italic px-3 text-slate-500 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2'
                         name='email'
                         value={data.email}
                         placeholder='email@company.com...'
-                        handleChange={onHandleChange}
+                        onChange={e => setData('email', e.target.value)}
                     />
                     <InputError message={errors.email} className="mt-2" />
                 </div>
@@ -120,7 +122,7 @@ export default function FormMember ({ title, formSuccess, member=null}) {
                 </div>
             </div>
 
-            <PrimaryButton className='w-32' processing={processing}>Cadastrar</PrimaryButton>
+            <PrimaryButton className='w-32' processing={processing}>Editar membro</PrimaryButton>
         </form>
     );
 

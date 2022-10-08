@@ -27,8 +27,8 @@ class StoreMember extends FormRequest
 
             'name' => 'required|string',
             'email' => 'required|unique:members',
-            'cel1' => 'required',
-            'cel2' => 'nullable',
+            'cel1' => 'required|min:14',
+            'cel2' => 'nullable|min:14',
             'cpf' => 'required|unique:members',
             'image' => 'nullable|image|mimes:jpeg,jpg,png,gif'
         ];
