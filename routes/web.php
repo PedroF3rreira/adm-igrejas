@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 
 Route::resource('/membros', MemberController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
     ->names('members')
     ->parameters(['membros' => 'member'])
 ->middleware(['auth']);
