@@ -21,7 +21,7 @@ export default function FormMemberUpdate ({ title, formSuccess, member }) {
 
     const submitUpdate = (e) =>{
         e.preventDefault();
-        put(route('members.update', member.id));
+        put(route('members.update', member.id),  { preserveScroll: true });
     }
 
     const onHandleChange = (event) => {
@@ -32,7 +32,7 @@ export default function FormMemberUpdate ({ title, formSuccess, member }) {
         <form
             onSubmit={submitUpdate}
             className='mx-auto flex flex-col space-y-2 w-3/4 border p-2 rounded mb-3'
-            data-aos='fade-left'
+            data-aos='fade-up'
             data-aos-duration='1000'
             >
 

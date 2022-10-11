@@ -18,7 +18,7 @@ export default function Index(props) {
 
         setTimeout( () => {
             setShowMessage(false)
-        }, 3000)
+        }, 6000)
     }
 
     return(
@@ -28,11 +28,10 @@ export default function Index(props) {
         >
             <Head title='Membros' />
 
-            {/* menssagem exibida apos eventos n sistema */}
+            {/* menssagem exibida apos eventos no sistema */}
             {showMessage &&
                 <Message text={props.status}/>
             }
-
 
             <div className='lg:flex px-5 mt-5 text-slate-500 overflow-hidden'>
                 <div
@@ -93,7 +92,7 @@ export default function Index(props) {
                     <List title="Membros">
                        {props.members.map((member) => (
 
-                               <ListItem key={member.id} data={member}/>
+                               <ListItem key={member.id} data={member} status={props.status}/>
 
                            ))}
                     </List>

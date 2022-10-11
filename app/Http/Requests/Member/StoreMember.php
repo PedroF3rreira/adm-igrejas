@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Member;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class StoreMember extends FormRequest
 {
@@ -23,6 +24,7 @@ class StoreMember extends FormRequest
      */
     public function rules()
     {
+
         return [
 
             'name' => 'required|string|min:5',

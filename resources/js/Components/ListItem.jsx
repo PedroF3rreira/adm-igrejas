@@ -10,8 +10,9 @@ export default function ListItem({data, status}) {
     const [ showMessage, setShowMessage ] = useState(false);
 
     const timeMessageShow = (data) => {
+        
         setShowMessage(data)
-
+        
         setTimeout( () => {
             setShowMessage(false)
         }, 3000)
@@ -28,17 +29,16 @@ export default function ListItem({data, status}) {
     return(
 		<div className={`border p-1 rounded  mt-2 ${!showEditForm && 'hover:bg-indigo-200'}`}>
             {showMessage &&
-                <Message text={'editado copm exito'}/>
+                <Message text={status}/>
             }
 			<div className="flex space-x-20 items-center">
 				<div>
                     {data.image
-                        ?<img
-                            src={'/storage/'+data.image}
-                            width='30'
-                            height='30'
-                            className='rounded-full'
-                        />
+                        ?<div className='flex items-center rounded-full overflow-hidden w-8 h-8'>
+                            <img
+                                src={'/storage/'+data.image}                            
+                            />
+                        </div>
                         :<IoIosContact className="text-3xl"/>
                     }
 				</div>

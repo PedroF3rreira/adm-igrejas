@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Requests\Member\StoreMember;
 use App\Http\Requests\Member\UpdateMember;
+use Illuminate\Support\Facades\Gate;
 
 class MemberController extends Controller
 {
@@ -20,7 +21,8 @@ class MemberController extends Controller
         // exibe tela inicial de membros com membros cadastrados
         return Inertia::render('Members/Index',[
             'members' => Member::orderBy('created_at', 'DESC')->get(),
-            'status' => session('status')
+            'status' => session('status'),
+            'error' => session('error')
         ]);
     }
 
@@ -42,6 +44,11 @@ class MemberController extends Controller
      */
     public function store(StoreMember $request)
     {
+        // verifica se o usuário é administrador
+        if(!Gate::allows('is-admin')){
+            return redirect()->route('members.index')->with('status', 'Você tem de ser administrador para executar essa ação');
+        }
+            
         // validando entrada pelo formRequest StoreMember
         $validated = $request->validated();
 
@@ -58,7 +65,7 @@ class MemberController extends Controller
         // verifica se existe arquivo na posição image de file
         if($request->file('image')){
             // faz upload do arquivo
-            $member->image = $request->file('image')->store('teste', 'public');
+            $member->image = $request->file('image')->store('members', 'public');
         }
 
         // atribuindo fk para relacionamento com usuario logado
@@ -71,7 +78,8 @@ class MemberController extends Controller
             ->with(['status' => 'Membro cadastrado com exito!']);
         }
 
-        return redirect()->route('members.index')->withErros('error', 'não foi possivel fazer o cadastro');
+        return redirect()->route('members.index')->with('status', 'não foi possivel fazer o cadastro');
+    
     }
 
     /**
@@ -105,6 +113,11 @@ class MemberController extends Controller
      */
     public function update(UpdateMember $request, Member $member)
     {
+         // verifica se o usuário é administrador
+        if(!Gate::allows('is-admin')){
+            return redirect()->route('members.index')->with('status', 'Você tem de ser administrador para executar essa ação');
+        }
+            
         // validando entrada pelo formRequest UpdateMember
         $request->validated();
 
