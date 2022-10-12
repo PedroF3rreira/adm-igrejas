@@ -4,7 +4,7 @@ import { IoIosContact, IoIosTrash, IoIosCreate } from 'react-icons/io';
 import FormMemberUpdate from '@/Components/FormMemberUpdate';
 import Message from '@/Components/Message';
 
-export default function ListItem({data, status}) {
+export default function ListItem({member, status}) {
 
     const [ showEditForm, setShowEditForm ] = useState(false);
     const [ showMessage, setShowMessage ] = useState(false);
@@ -31,19 +31,20 @@ export default function ListItem({data, status}) {
             {showMessage &&
                 <Message text={status}/>
             }
-			<div className="flex space-x-20 items-center">
-				<div>
-                    {data.image
+			<div className="flex  items-center text-sm">
+				<div className='w-16'>
+                    {member.image
                         ?<div className='flex items-center rounded-full overflow-hidden w-8 h-8'>
                             <img
-                                src={'/storage/'+data.image}                            
+                                src={'/storage/'+member.image}                            
                             />
                         </div>
                         :<IoIosContact className="text-3xl"/>
                     }
 				</div>
-				<div className="w-64">{data.name}</div>
-				<div>{data.cel1}</div>
+				<div className='flex-1'>{member.name}</div>
+                <div className='flex-1 hidden xl:block'>{member.email}</div>
+				<div className='flex-1 hidden sm:block'>{member.cel1}</div>
 
 				<div className="flex space-x-4">
 					<button
@@ -56,14 +57,14 @@ export default function ListItem({data, status}) {
                         className="text-2xl text-red-400 hover:text-red-600"
                         as="button"
                         method="delete"
-                        href={route("members.destroy", data.id)}
+                        href={route("members.destroy", member.id)}
                         title="Excluir">
                         <IoIosTrash/>
                     </Link>
 				</div>
 			</div>
             {showEditForm &&
-                <FormMemberUpdate title={`Editar ${data.name}`} formSuccess={timeMessageShow} member={data}/>
+                <FormMemberUpdate title={`Editar`} formSuccess={timeMessageShow} member={member}/>
             }
 		</div>
 	);

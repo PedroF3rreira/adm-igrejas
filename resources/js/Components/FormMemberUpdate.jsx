@@ -39,8 +39,8 @@ export default function FormMemberUpdate ({ title, formSuccess, member }) {
             <h3 className='ml-5 mb-3 p-2 bg-indigo-500 text-white rounded-l-lg'>{`${title} Membros`}</h3>
 
             {/*form control*/}
-            <div className='flex space-x-2 w-full'>
-                <div className='w-full'>
+            <div className='flex flex-col lg:space-x-2 lg:flex-row w-full'>
+                <div className='w-full mb-2'>
                     <input
                         name='name'
                         className='border flex w-full placeholder:text-slate-400 placeholder:italic px-3 text-slate-500 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2'
@@ -51,7 +51,7 @@ export default function FormMemberUpdate ({ title, formSuccess, member }) {
                     <InputError message={errors.name} className="mt-2" />
                 </div>
 
-                <div className='w-full'>
+                <div className='w-full '>
                     <input
                         className='border flex w-full placeholder:text-slate-400 placeholder:italic px-3 text-slate-500 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2'
                         name='email'
@@ -65,8 +65,8 @@ export default function FormMemberUpdate ({ title, formSuccess, member }) {
             </div>
 
             {/*form control*/}
-            <div className='flex space-x-2'>
-                <div className='w-full'>
+            <div className='flex flex-col lg:space-x-2 lg:flex-row'>
+                <div className='w-full mb-2'>
                     <TextInput
                         name='cel1'
                         value={data.cel1}
@@ -90,8 +90,8 @@ export default function FormMemberUpdate ({ title, formSuccess, member }) {
             </div>
 
         {/*form control*/}
-            <div className='flex space-x-2'>
-                <div className='w-1/2'>
+            <div className='flex flex-col lg:space-x-2'>
+                <div className='lg:w-1/2'>
                     <TextInput
                         name='cpf'
                         value={data.cpf}

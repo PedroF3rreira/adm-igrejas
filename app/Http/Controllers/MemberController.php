@@ -18,9 +18,10 @@ class MemberController extends Controller
      */
     public function index()
     {
+        $members = Member::latest()->paginate(5);
         // exibe tela inicial de membros com membros cadastrados
         return Inertia::render('Members/Index',[
-            'members' => Member::orderBy('created_at', 'DESC')->get(),
+            'members' => $members,
             'status' => session('status'),
             'error' => session('error')
         ]);
