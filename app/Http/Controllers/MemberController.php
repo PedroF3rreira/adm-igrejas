@@ -17,8 +17,8 @@ class MemberController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $members = Member::latest()->paginate(5);
+    {   
+        $members = Member::latest()->paginate(10);
         // exibe tela inicial de membros com membros cadastrados
         return Inertia::render('Members/Index',[
             'members' => $members,

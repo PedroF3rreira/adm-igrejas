@@ -14,6 +14,7 @@ export default function Index(props) {
     const [ showForm, setShowForm ] = useState(false);
     const [ showMessage, setShowMessage ] = useState(false);
 
+    // função para fazer menssagem temporaria
     const timeMessageShow = (data) => {
         setShowMessage(data)
 
@@ -104,12 +105,13 @@ export default function Index(props) {
                     </List>
 
                 {/*paginação de membros*/}
-                    <div className="flex space-x-10 items-center">
-                     <Pagination class="" links={props.members.links} />            
-                     <p className="text-sm">{`Total de membros ${props.members.total}`}</p>
-                    </div>    
+                    <div className="flex-cols items-center justify-center border p-1 rounded mt-2">
+                     <Pagination  links={props.members.links} />            
+                     <p className="text-sm">{`Total de membros: ${props.members.total}`}</p>
+                    </div>
+                        
                 </div>
-
+                
                 {/* lateral */}
                 <div
                     className='bg-white rounded lg:w-64 p-2 shadow-md'
