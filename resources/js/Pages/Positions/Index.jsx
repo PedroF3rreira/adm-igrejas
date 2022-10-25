@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/inertia-react';
 import List from '@/Components/List';
-import MemberItem from '@/Components/MemberItem';
+import PositionItem from '@/Components/PositionItem';
+import FormPosition from '@/Components/FormPosition';
 import { IoMdList, IoIosPersonAdd } from 'react-icons/io';
 import Dropdown from '@/Components/Dropdown';
-import FormMember from '@/Components/FormMember';
 import Message from '@/Components/Message';
 import Pagination from '@/Components/Pagination';
 
@@ -54,7 +54,7 @@ export default function Index(props) {
 
                             </div>
 
-                        {/*Botão que mostra formulário para novo membro*/}
+                        {/*Botão que mostra formulário para novo registro*/}
                             <div  onClick={() => !showForm?setShowForm(true):setShowForm(false)}>
                                 <IoIosPersonAdd className={`
                                     cursor-pointer
@@ -89,28 +89,18 @@ export default function Index(props) {
 
                         </div>
                     </div>
-
                 {/*Formulário de novo membro*/}
                     {showForm &&
-                        <FormMember title="Cadastro de " positions={props.positions} formSuccess={timeMessageShow}/>
+                        <FormPosition title="Cadastro de " formSuccess={timeMessageShow}/>
                     }
 
-                {/*Lista de membrors*/}
-                    <List title="Membros">
-                       {props.members.data.map((member) => (
-
-                               <MemberItem key={member.id} member={member} status={props.status}/>
-
-                           ))}
-                    
+                    <List title={'Cargos'}>
+                        {props.positions &&
+                            props.positions.map((position) =>(
+                                <PositionItem key={position.id} position={position} status={props.status}/>
+                                ))
+                        }
                     </List>
-
-                {/*paginação de membros*/}
-                    <div className="flex-cols items-center justify-center border p-1 rounded mt-2">
-                     <Pagination  links={props.members.meta.links} />            
-                     <p className="text-sm">{`Total de membros: ${props.members.meta.total}`}</p>
-                    </div>
-                        
                 </div>
                 
                 {/* lateral */}

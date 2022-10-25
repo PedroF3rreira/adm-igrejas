@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\Position;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Requests\Member\StoreMember;
 use App\Http\Requests\Member\UpdateMember;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\MemberCollection;
 
 class MemberController extends Controller
 {
@@ -18,10 +21,14 @@ class MemberController extends Controller
      */
     public function index()
     {   
-        $members = Member::latest()->paginate(10);
+        $members = new MemberCollection(Member::latest()->paginate(10));
+        
+        $positions = Position::all();
+        
         // exibe tela inicial de membros com membros cadastrados
         return Inertia::render('Members/Index',[
             'members' => $members,
+            'positions' => $positions,
             'status' => session('status'),
             'error' => session('error')
         ]);
@@ -62,7 +69,7 @@ class MemberController extends Controller
         $member->cel1 = $request->cel1;
         $member->cel2 = $request->cel2;
         $member->cpf = $request->cpf;
-
+       
         // verifica se existe arquivo na posição image de file
         if($request->file('image')){
             // faz upload do arquivo
@@ -74,6 +81,14 @@ class MemberController extends Controller
 
         // se a ação de persistir os dados no banco retornar true redireciona para index
         if($member->save()){
+           
+           if($request->position){
+            DB::table('position_member')->insert([
+                'position_id' => $request->position,
+                'member_id' => $member->id
+            ]);
+           }
+            
             return redirect()
                 ->route('members.index')
             ->with(['status' => 'Membro cadastrado com exito!']);
@@ -147,11 +162,10 @@ class MemberController extends Controller
             $request->validate(['cpf' => 'required|unique:members']);
             $member->cpf = $request->cpf;
         }
-        // atribuindo chave fk para relacionamento
-        $member->user_id = $request->user()->id;
-
+        
         // persistindo dados no banco de dados
         if($member->save()){
+
             return redirect()
                 ->route('members.index')
             ->with(['status' => 'Membro atualizado com exito!']);

@@ -4,7 +4,7 @@ import InputError from '@/Components/InputError';
 import { useForm } from '@inertiajs/inertia-react';
 import PrimaryButton from '@/Components/PrimaryButton';
 
-export default function FormMember ({ title, formSuccess, member=null}) {
+export default function FormMember ({ title, formSuccess, positions}) {
 
     const { data, setData, post, processing, reset, errors, wasSuccessful, progress  } = useForm({
         name: null,
@@ -13,6 +13,7 @@ export default function FormMember ({ title, formSuccess, member=null}) {
         email: null,
         cpf: null,
         image: null,
+        position: null
     });
 
     useEffect(() => {
@@ -119,7 +120,19 @@ export default function FormMember ({ title, formSuccess, member=null}) {
                     <InputError message={errors.image} className="mt-2" />
                 </div>
             </div>
-
+            
+            
+                <div className='flex flex-col lg:space-x-2 lg:flex-row w-full'>
+                    <select  onChange={e => setData('position', e.target.value)} className='rounded border-gray-300 text-gray-500'>
+                        {positions.map(position => (
+                                <option key={position.id} value={position.id}>
+                                    {position.name}
+                                </option>
+                                ))
+                        }
+                    </select>
+                </div>
+            
             <PrimaryButton className='w-32' processing={processing}>Cadastrar</PrimaryButton>
         </form>
     );

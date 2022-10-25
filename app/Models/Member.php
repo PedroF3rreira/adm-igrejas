@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use App\Models\Office;
+use App\Models\Position;
 
 class Member extends Model
 {
@@ -28,9 +28,10 @@ class Member extends Model
  		return $this->belongsTo(User::class);
  	}
 
- 	public function offices()
+ 	// relacionamento muitos para muitos
+ 	public function positions()
  	{
- 		return $this->belongsToMany(Office::class, 'office_member', 'member_id', 'office_id');
+ 		return $this->belongsToMany(Position::class, 'position_member', 'member_id', 'position_id');
  	}
 
  	public function name(): Attribute

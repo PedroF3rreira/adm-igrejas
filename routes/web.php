@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PositionController;
 use Inertia\Inertia;
 
 /*
@@ -26,5 +27,12 @@ Route::resource('/membros', MemberController::class)
     ->names('members')
     ->parameters(['membros' => 'member'])
 ->middleware(['auth']);
+
+Route::resource('/cargos', PositionController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->names('positions')
+    ->parameters(['cargos' => 'positions'])
+->middleware(['auth']);
+
 
 require __DIR__.'/auth.php';

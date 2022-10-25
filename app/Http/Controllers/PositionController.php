@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Office;
+use App\Models\Position;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
-class OfficeController extends Controller
+class PositionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +14,10 @@ class OfficeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {   
+        return Inertia::render('Positions/Index',[
+            'positions' => Position::all(),
+        ]);
     }
 
     /**
@@ -41,10 +44,10 @@ class OfficeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Office  $office
+     * @param  \App\Models\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function show(Office $office)
+    public function show(Position $position)
     {
         //
     }
@@ -52,10 +55,10 @@ class OfficeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Office  $office
+     * @param  \App\Models\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function edit(Office $office)
+    public function edit(Position $position)
     {
         //
     }
@@ -64,10 +67,10 @@ class OfficeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Office  $office
+     * @param  \App\Models\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Office $office)
+    public function update(Request $request, Position $position)
     {
         //
     }
@@ -75,10 +78,10 @@ class OfficeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Office  $office
+     * @param  \App\Models\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Office $office)
+    public function destroy(Position $position)
     {
         //
     }

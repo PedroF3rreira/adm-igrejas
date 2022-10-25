@@ -4,7 +4,7 @@ import { IoIosContact, IoIosTrash, IoIosCreate, IoIosCloseCircle } from 'react-i
 import FormMemberUpdate from '@/Components/FormMemberUpdate';
 import Message from '@/Components/Message';
 
-export default function ListItem({member, status}) {
+export default function MemberItem({position, status}) {
 
     const [ showEditForm, setShowEditForm ] = useState(false);
     const [ showMessage, setShowMessage ] = useState(false);
@@ -33,21 +33,14 @@ export default function ListItem({member, status}) {
                 <Message text={status}/>
             }
 			<div className="flex items-center text-sm">
-				<div className='w-16'>
-                    {member.image
-                        ?<div className='flex items-center rounded-full overflow-hidden w-8 h-8'>
-                            <img
-                                src={'/storage/'+member.image}                            
-                            />
-                        </div>
-                        :<IoIosContact className="text-3xl"/>
-                    }
+				
+                <div className='w-16'>
+                    <IoIosContact className="text-3xl"/>
 				</div>
-				<div onClick={e => setShowModal(true)} className='flex-1 cursor-pointer'>{member.name}</div>
-                <div className='flex-1 hidden xl:block'>{member.email}</div>
-				<div className='flex-1 hidden sm:block'>{member.cel1}</div>
 
-				<div className="flex space-x-4">
+				<div onClick={e => setShowModal(true)} className='flex-1 cursor-pointer'>{position.name}</div>
+				
+                <div className="flex space-x-4">
 					<button
                         className={`text-2xl text-indigo-400 hover:text-indigo-600 ${showEditForm && 'text-indigo-900'}`}
                         onClick={() => showEditFormHandle()}
@@ -58,7 +51,7 @@ export default function ListItem({member, status}) {
                         className="text-2xl text-red-400 hover:text-red-600"
                         as="button"
                         method="delete"
-                        href={route("members.destroy", member.id)}
+                        href={route("members.destroy", position.id)}
                         title="Excluir">
                         <IoIosTrash/>
                     </Link>
@@ -69,6 +62,7 @@ export default function ListItem({member, status}) {
             }
 
             {showModal &&
+                
                 /*modal de detalhes de usuario*/
                 <div 
                     data-aos='fade-down'
@@ -80,26 +74,13 @@ export default function ListItem({member, status}) {
                             <IoIosCloseCircle onClick={e => setShowModal(false)} className='text-2xl text-white hover:text-red-500 cursor-pointer'/>
                         </div>
                         {/*Conteúdo do modal*/}
-                        <div className='flex p-2'>
+                        <div className='lg:flex p-2'>
                             
                             <div className='flex-1'>
-                                <div className='flex space-x-10 my-3'>
-                                    <p>Nome: {member.name}</p>
-                                    <p>Email: {member.email}</p>    
+                                <div className='xl:flex xl:space-x-10 my-3'>
+                                    <p>Nome: {position.name}</p>
+                                    <p>Descrição: {position.description}</p>
                                 </div>
-                                
-                                <div className='flex space-x-5 my-3'>
-                                    <p>Contatos: {member.cel1}</p>
-                                    <p>{member.cel2}</p>  
-                                </div>
-                                <p>Cpf: {member.cpf}</p>    
-                            </div>
-                            
-                            <div className='flex items-center justify-center w-60 h-60 overflow-hidden rounded-md border-4 border-indigo-400'>
-                                {member.image
-                                    ? <img classNmae='w-full' src={`/storage/${member.image}`}/>
-                                    : <IoIosContact className="text-9xl text-center"/>
-                                }
                             </div>
                         </div>
                     </div>

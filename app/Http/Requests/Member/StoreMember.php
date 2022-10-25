@@ -32,7 +32,8 @@ class StoreMember extends FormRequest
             'cel1' => 'required|min:14',
             'cel2' => 'nullable|min:14',
             'cpf' => 'required|unique:members',
-            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif'
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif',
+            'position' => 'nullable'
         ];
     }
 }
